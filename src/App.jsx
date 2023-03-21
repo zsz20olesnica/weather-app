@@ -14,7 +14,7 @@ function App() {
   const [data, setData] = useState({})
 
   // fetch weather data q=city
-  const getWeatherData = async (q = 'Paris') => {
+  const getWeatherData = async (q = 'Olesnica') => {
     try{
 
       const response = await  fetch('http://api.weatherapi.com/v1/current.json?' + new URLSearchParams({
@@ -61,7 +61,7 @@ function App() {
         {/* Content */}
         <div className="w-full lg:w-auto lg:flex lg:flex-row lg:gap-[144px] lg:items-center lg:justify-center">
             {/* Temperatura */}
-            <Temperature temperature={data.current.temp_c}></Temperature>
+            <Temperature></Temperature>
             <div>
                 {/* Dodatkowe informacje*/}
                 <AdditionalInformations></AdditionalInformations>
