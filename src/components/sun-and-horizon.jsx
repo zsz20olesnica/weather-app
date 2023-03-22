@@ -1,6 +1,13 @@
 import { SunAndHorizon } from "../assets/icons"
 
-export default function SunInfo({east = "6:35", west = "19:20"}) {
+import { useWeatherData } from '../context/weatherContext'
+
+export default function SunInfo() {
+
+  const { sunrise, sunset } = useWeatherData()
+
+
+
   return (
             <section className="bg-[#FDFCFC] w-full flex flex-col items-start justify-between gap-[24px] px-[24px] py-[16px] mt-[32px]">
                     <p className="font-medium text-[12px] text-[#C4C4C4] md:text-[16px] lg:text-[24px]">Słońce</p>
@@ -11,7 +18,7 @@ export default function SunInfo({east = "6:35", west = "19:20"}) {
                           {/* Godzina wschodu */}
                           <div>
                             <p className="font-regular text-[10px] text-[#C4C4C4] md:text-[12px] lg:text-[18px]">Wschód</p>
-                            <span className="font-regular text-[12px] text-[#777777] md:text-[14px] lg:text-[16px]">{east}</span>
+                            <span className="font-regular text-[12px] text-[#777777] md:text-[14px] lg:text-[16px]">{sunrise}</span>
                           </div>
                           
                         
@@ -19,7 +26,7 @@ export default function SunInfo({east = "6:35", west = "19:20"}) {
                           {/* Godzina zachodu */}
                           <div>
                             <p className="font-regular text-[10px] text-[#C4C4C4] md:text-[12px] lg:text-[18px]">Zachód</p>
-                            <span className="font-regular text-[12px] text-[#777777] md:text-[14px] lg:text-[16px]">{west}</span>
+                            <span className="font-regular text-[12px] text-[#777777] md:text-[14px] lg:text-[16px]">{sunset}</span>
                           </div>
                         </div>
                       
