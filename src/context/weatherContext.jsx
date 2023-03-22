@@ -98,6 +98,15 @@ export default function WeatherProvider({ children }) {
   const lastUpdated = weatherData?.current?.last_updated.substring(weatherData?.current?.last_updated.length - 5)
 
 
+  let sunriseHour = sunData?.astronomy?.astro?.sunset.substring(sunData?.astronomy?.astro?.sunset.length - 6)
+
+
+  sunriseHour = sunriseHour + 12
+
+  console.log(sunriseHour)
+
+
+
 
   const value =  {
     temperature: weatherData?.current?.temp_c,
