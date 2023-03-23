@@ -12,6 +12,7 @@ export default function WeatherProvider({ children }) {
   const [sunData, setSunData] = useState({})
   const duration = 600000
 
+  // fetch weather
   const getWeatherData = async (q = 'Olesnica') => {
     try {
       const response = await fetch(
@@ -32,6 +33,7 @@ export default function WeatherProvider({ children }) {
     }
   }
 
+  // fetch sun data
   const getSunData = async (q = 'Olesnica') => {
     try {
       const response = await fetch(
@@ -65,23 +67,12 @@ export default function WeatherProvider({ children }) {
     return () => clearInterval(interval) 
   }, [])
 
-  
-
-
-  function getSunset(fullTime) {
-    const hour = parseInt(fullTime.substring(0, 2))
-    const minutes = fullTime.substring(3, 2)
-    console.log(fullTime.substring(0,2))
-    return `${hour + 12}:${minutes}`
-  }
 
 
 
 
-
-
-  //to ma odejmowac godzine zahchodu od wschodu aby obliczyc dlugosc dnia
-  function calculateDayLenght(start, end) {
+  //to ma odejmowac date od daty, hours:minutes - hours:minutes
+  function calculateTimeDifference(start, end) {
 
     // Create date format.          
     let timeStart = new Date("October 23, 2023 " + start)
@@ -125,7 +116,7 @@ export default function WeatherProvider({ children }) {
   const convertedSunset = parseInt(sunData?.astronomy?.astro?.sunset.slice(1,2)) + 12 + sunData?.astronomy?.astro?.sunset.slice(2,5)
 
 
-
+  const toSunset = lastUpdated >= convertedSunset ? 'Aktualnie jest noc': calculateTimeDifference(lastUpdated, convertedSunset);
 
   
 
@@ -138,7 +129,8 @@ export default function WeatherProvider({ children }) {
     aq: Math.floor(weatherData?.current?.air_quality.pm10),
     sunrise: convertedSunrise,
     sunset: convertedSunset,
-    dayLenght: calculateDayLenght(convertedSunset, convertedSunrise),
+    dayLenght: calculateTimeDifference(convertedSunset, convertedSunrise),
+    toSunset: toSunset,
     lastUpdated: lastUpdated,
   }
 
