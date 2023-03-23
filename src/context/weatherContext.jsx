@@ -62,14 +62,11 @@ export default function WeatherProvider({ children }) {
 
     console.log(weatherData)
 
-    return () => clearInterval(interval)
+    return () => clearInterval(interval) 
   }, [])
 
-  const lastUpdated = weatherData?.current?.last_updated.substring(
-    weatherData?.current?.last_updated.length - 5
-  )
-  //no, I don't know regex 
-  const hourRegex = /^(\d{2}:\d{2})/;
+  
+
 
   function getSunset(fullTime) {
     const hour = parseInt(fullTime.substring(0, 2))
@@ -78,13 +75,70 @@ export default function WeatherProvider({ children }) {
     return `${hour + 12}:${minutes}`
   }
 
+
+
+
+
+
+  //to ma odejmowac godzine zahchodu od wschodu aby obliczyc dlugosc dnia
+  function calculateDayLenght(start, end) {
+
+    // Create date format.          
+    let timeStart = new Date("October 23, 2023 " + start)
+    let timeEnd = new Date("October 23, 2023 " + end)
+
+    // Subtract.
+    let difference = timeEnd - timeStart
+
+    let time = msToTime(difference)
+
+    return time
+  } 
+
+
+  //to ma zamienic milisekundy na sekundy i tak az do godzin
+  function msToTime(s) {
+      var ms = s % 1000
+      s = (s - ms) / 1000
+      var secs = s % 60
+      s = (s - secs) / 60
+      var mins = s % 60
+      var hrs = (s - mins) / 60
+
+      // te minut/y roboczo
+      return Math.abs(hrs) + ' godzin ' + Math.abs(mins) + ' minut/y'
+  }
+
+
+
+
+
+  //export values
+  const lastUpdated = weatherData?.current?.last_updated.substring(
+    weatherData?.current?.last_updated.length - 5
+  )
+
+  //z np 05:20 AM robi 5:20
+  const convertedSunrise = sunData?.astronomy?.astro?.sunrise.slice(0,5)
+
+  //z np 08:20 PM robi 20:20
+  const convertedSunset = parseInt(sunData?.astronomy?.astro?.sunset.slice(1,2)) + 12 + sunData?.astronomy?.astro?.sunset.slice(2,5)
+
+
+
+
+  
+
+
+
   const value = {
     temperature: weatherData?.current?.temp_c,
     uv: weatherData?.current?.uv,
     humidity: weatherData?.current?.humidity,
     aq: Math.floor(weatherData?.current?.air_quality.pm10),
-    sunrise: sunData?.astronomy?.astro?.sunrise.match(hourRegex)[1],
-    // sunset: getSunset(sunData?.astronomy?.astro?.sunset.match(hourRegex)[1]),
+    sunrise: convertedSunrise,
+    sunset: convertedSunset,
+    dayLenght: calculateDayLenght(convertedSunset, convertedSunrise),
     lastUpdated: lastUpdated,
   }
 

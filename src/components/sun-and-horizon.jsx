@@ -4,7 +4,7 @@ import { useWeatherData } from '../context/weatherContext'
 
 export default function SunInfo() {
 
-  const { sunrise, sunset } = useWeatherData()
+  const { sunrise, sunset, dayLenght } = useWeatherData()
 
 
 
@@ -35,7 +35,7 @@ export default function SunInfo() {
 
                     <div className="flex flex-col gap-1 items-start">
                     {/* Dlugość dnia */}
-                    <p className="font-regular text-[10px] text-[#C4C4C4] md:text-[12px] lg:text-[16px]">Dlugość dnia: <span className="font-regular text-[10px] text-[#2C2C2C] md:text-[12px] lg:text-[16px]">13 godzin i 42 minuty</span></p>
+                    <p className="font-regular text-[10px] text-[#C4C4C4] md:text-[12px] lg:text-[16px]">Dlugość dnia: <span className="font-regular text-[10px] text-[#2C2C2C] md:text-[12px] lg:text-[16px]">{dayLenght}</span></p>
                     {/* Do zachodu słońca White 2115 */}
                     <p className="font-regular text-[10px] text-[#C4C4C4] md:text-[12px] lg:text-[16px]">Do zachodu słońca: <span className="font-regular text-[10px] text-[#2C2C2C] md:text-[12px] lg:text-[16px]">9 godzin 22 minuty</span></p>
                     </div>
