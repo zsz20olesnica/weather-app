@@ -1,4 +1,4 @@
-import { SunAndHorizon } from "../assets/icons"
+import { SunWithHorizon } from "../assets/icons"
 
 import { useWeatherData } from '../context/weatherContext'
 
@@ -30,12 +30,12 @@ export default function SunInfo() {
                           </div>
                         </div>
                       
-                        <SunAndHorizon className='w-full'></SunAndHorizon>
+                        <SunWithHorizon className='w-full'></SunWithHorizon>
                     </div>
 
                     <div className="flex flex-col gap-1 items-start">
                     {/* Dlugość dnia */}
-                    <p className="font-regular text-[10px] text-[#C4C4C4] md:text-[12px] lg:text-[16px]">Dlugość dnia: <span className="font-regular text-[10px] text-[#2C2C2C] md:text-[12px] lg:text-[16px]">{dayLenght}</span></p>
+                    <p className="font-regular text-[10px] text-[#C4C4C4] md:text-[12px] lg:text-[16px]">Długość dnia: <span className="font-regular text-[10px] text-[#2C2C2C] md:text-[12px] lg:text-[16px]">{dayLenght}</span></p>
                     {/* Do zachodu słońca White 2115 */}
                     <p className="font-regular text-[10px] text-[#C4C4C4] md:text-[12px] lg:text-[16px]">Do zachodu słońca: <span className="font-regular text-[10px] text-[#2C2C2C] md:text-[12px] lg:text-[16px]">{toSunset}</span></p>
                     </div>

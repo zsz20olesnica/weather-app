@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 
+
 const API_KEY = import.meta.env.VITE_API_KEY
 const WeatherContext = React.createContext()
 
@@ -81,23 +82,38 @@ export default function WeatherProvider({ children }) {
     // Subtract.
     let difference = timeEnd - timeStart
 
-    let time = msToTime(difference)
+    let time = StringTimeCalculator(difference)
 
     return time
   } 
 
 
-  //to ma zamienic milisekundy na sekundy i tak az do godzin
-  function msToTime(s) {
-      var ms = s % 1000
+  //to ma zamienic milisekundy na sekundy i tak az do godzin i zrobic return jako string
+  function StringTimeCalculator(s) {
+      let ms = s % 1000
       s = (s - ms) / 1000
-      var secs = s % 60
+      let secs = s % 60
       s = (s - secs) / 60
-      var mins = s % 60
-      var hrs = (s - mins) / 60
+      let mins = s % 60
+      let hrs = (s - mins) / 60
 
-      // te minut/y roboczo
-      return Math.abs(hrs) + ' godzin ' + Math.abs(mins) + ' minut/y'
+      let minsString = Math.abs(mins).toString()
+
+      let minsConjugation = ' minut/y'
+      
+      let i = minsString.length - 1
+
+      //10-21 - wyjatek
+      if((minsString.length == 2 && (minsString[0] == 1 || minsString[1] == 1)) || (minsString[i] >= 5 || minsString[i] == 0)) minsConjugation = ' minut'
+      
+      //jesli druga liczba == 1
+      else if(minsString[0] == 1) minsConjugation = ' minuta'
+      
+      //jesli druga liczba <= 4
+      else if(minsString[i] <= 4) minsConjugation = ' minuty'
+    
+    
+      return Math.abs(hrs) + ' godzin ' + (minsString > 0 ? minsString + minsConjugation : '')
   }
 
 
@@ -115,10 +131,19 @@ export default function WeatherProvider({ children }) {
   //z np 08:20 PM robi 20:20
   const convertedSunset = parseInt(sunData?.astronomy?.astro?.sunset.slice(1,2)) + 12 + sunData?.astronomy?.astro?.sunset.slice(2,5)
 
+  const toSunset = lastUpdated >= convertedSunset ? 'Aktualnie jest po zachodzie słońca': calculateTimeDifference(lastUpdated, convertedSunset);
 
-  const toSunset = lastUpdated >= convertedSunset ? 'Aktualnie jest noc': calculateTimeDifference(lastUpdated, convertedSunset);
 
-  
+  const weatherCodes = {
+    sunny: [1000],
+    partlyCloudy: [1003 , 1009 , 1063 , 1066 , 1069 , 1072 , 1087 , 1150],
+    cloudy: [1006 ,  1030 , 1135 , 1147],
+    rainy: [1114 , 1117 , 1153 , 1168 , 1171 , 1180 , 1183 , 1186 , 1189 , 1192 , 1195 , 1198 , 1201 , 1204 , 1207 , 1210 , 1213 , 1216 , 1219 , 1222 , 1225 , 1237 , 1240 , 1243 , 1246 , 1249 , 1252 , 1255 , 1258 , 1261 , 1264 , 1273 , 1276 , 1279 , 1282]
+  }
+
+
+
+
 
 
 
@@ -132,6 +157,8 @@ export default function WeatherProvider({ children }) {
     dayLenght: calculateTimeDifference(convertedSunset, convertedSunrise),
     toSunset: toSunset,
     lastUpdated: lastUpdated,
+    weatherCodes: weatherCodes,
+    weatherCode : weatherData?.current?.condition?.code
   }
 
   return (
