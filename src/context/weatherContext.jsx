@@ -17,7 +17,7 @@ export default function WeatherProvider({ children }) {
   const getWeatherData = async (q = 'Olesnica') => {
     try {
       const response = await fetch(
-        'http://api.weatherapi.com/v1/current.json?' +
+        'https://api.weatherapi.com/v1/current.json?' +
           new URLSearchParams({
             key: API_KEY,
             q: q,
@@ -38,7 +38,7 @@ export default function WeatherProvider({ children }) {
   const getSunData = async (q = 'Olesnica') => {
     try {
       const response = await fetch(
-        'http://api.weatherapi.com/v1/astronomy.json?' +
+        'https://api.weatherapi.com/v1/astronomy.json?' +
           new URLSearchParams({
             key: API_KEY,
             q: q,
