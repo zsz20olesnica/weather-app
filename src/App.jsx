@@ -11,7 +11,7 @@ function App() {
       <main className='font-poppins w-full h-screen px-[24px] md:px-[146px] box-border flex flex-col justify-start items-center text-center'>
         {/* Top heading */}
         <h1 className='mt-[32px] text-[#2C2C2C] font-poppins font-semibold text-[24px] mb-[32px] md:mt-[88px] md:font-bold md:text-[45px] lg:text-[48px] lg:mt-[64px]'>
-          Informacje pogodowe
+          Informacje pogodowe dla uczniów szkoły
         </h1>
 
         {/* Content */}
@@ -31,7 +31,8 @@ function App() {
 
         <footer className='mt-auto mb-4 flex items-center justify-center gap-2'>
           <p className='font-semibold text-[12px] text-[#2C2C2C] md:text-[20px]'>
-            &copy; ZSZ Oleśnica 2022/2023
+            <p className='font-normal
+            '>Kamil Kubiczek, Hubert Kuświk oraz Dawid Matiaszewski pod opieką mgr Józefy Janiuk</p> &copy; ZSZ Oleśnica 2022/2023
           </p>
         </footer>
       </main>

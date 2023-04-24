@@ -82,14 +82,14 @@ export default function WeatherProvider({ children }) {
     // Subtract.
     let difference = timeEnd - timeStart
 
-    let time = StringTimeCalculator(difference)
+    let time = stringTimeCalculator(difference)
 
     return time
   } 
 
 
   //to ma zamienic milisekundy na sekundy i tak az do godzin i zrobic return jako string
-  function StringTimeCalculator(s) {
+  function stringTimeCalculator(s) {
       let ms = s % 1000
       s = (s - ms) / 1000
       let secs = s % 60

@@ -31,17 +31,17 @@ export default function AdditionalInformations() {
           Wilgotność
         </p>
         <p className='font-medium text-[15px] text-[#777777] md:text-[20px] xl:text-[32px]'>
-          {humidity}
+          {humidity}%
         </p>
       </div>
 
       {/* AIR Quality*/}
       <div className='flex flex-col items-center justify-center'>
         <p className='font-medium text-[12px] text-[#C4C4C4] md:text-[16px] xl:text-[26px]'>
-          AQ
+          Jakość powietrza
         </p>
         <p className='font-medium text-[15px] text-[#777777] md:text-[20px] xl:text-[32px]'>
-          {aq}
+          {aq}/10
         </p>
       </div>
     </section>
